@@ -566,6 +566,10 @@ body {
         padding: 50px 20px;
     }
 
+    .hero-background {
+        background-position: 34%;
+    }
+
     .intro {
         display: flex;
         flex-direction: column;
