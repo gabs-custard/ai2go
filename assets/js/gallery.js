@@ -2,41 +2,65 @@ document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.querySelector('.gallery-carousel');
     const prevBtn = document.querySelector('.gallery-prev');
     const nextBtn = document.querySelector('.gallery-next');
-    const items = document.querySelectorAll('.gallery-item');
+    const items = Array.from(document.querySelectorAll('.gallery-item'));
     
     let currentIndex = 0;
     const totalItems = items.length;
 
+    // Clonar os primeiros e últimos itens para criar uma ilusão de infinito
+    const firstClone = items[0].cloneNode(true);
+    const lastClone = items[items.length - 1].cloneNode(true);
+    
+    carousel.appendChild(firstClone);
+    carousel.insertBefore(lastClone, items[0]);
+
     function updateCarousel() {
-        const carouselWidth = carousel.offsetWidth;
         const itemWidth = items[0].offsetWidth;
-        const offset = -(currentIndex * (itemWidth + 20));
-
+        const gap = 20; // Corresponde ao gap no CSS
+        
+        // Calcula o offset considerando o item clonado
+        const offset = -((currentIndex + 1) * (itemWidth + gap));
+        
         carousel.style.transform = `translateX(${offset}px)`;
+    }
 
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex >= totalItems - 1;
-
-        prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
-        prevBtn.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
-        nextBtn.style.opacity = currentIndex >= totalItems - 1 ? '0.5' : '1';
-        nextBtn.style.cursor = currentIndex >= totalItems - 1 ? 'not-allowed' : 'pointer';
+    function handleTransitionEnd() {
+        // Reposiciona sem animação quando chegar nos clones
+        if (currentIndex === totalItems) {
+            carousel.style.transition = 'none';
+            currentIndex = 0;
+            updateCarousel();
+            
+            // Reativa a transição depois de um pequeno delay
+            setTimeout(() => {
+                carousel.style.transition = 'transform 0.5s ease';
+            }, 50);
+        }
+        
+        if (currentIndex === -1) {
+            carousel.style.transition = 'none';
+            currentIndex = totalItems - 1;
+            updateCarousel();
+            
+            setTimeout(() => {
+                carousel.style.transition = 'transform 0.5s ease';
+            }, 50);
+        }
     }
 
     nextBtn.addEventListener('click', () => {
-        if (currentIndex < totalItems - 1) {
-            currentIndex++;
-            updateCarousel();
-        }
+        currentIndex++;
+        updateCarousel();
     });
 
     prevBtn.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateCarousel();
-        }
+        currentIndex--;
+        updateCarousel();
     });
 
+    carousel.addEventListener('transitionend', handleTransitionEnd);
+
+    // Toque para mobile
     let touchStartX = 0;
     carousel.addEventListener('touchstart', (e) => {
         touchStartX = e.touches[0].clientX;
@@ -45,19 +69,12 @@ document.addEventListener('DOMContentLoaded', function() {
     carousel.addEventListener('touchend', (e) => {
         const touchEndX = e.changedTouches[0].clientX;
         if (touchStartX - touchEndX > 50) {
-            // Deslizou para esquerda
-            if (currentIndex < totalItems - 1) {
-                currentIndex++;
-                updateCarousel();
-            }
+            nextBtn.click();
         } else if (touchEndX - touchStartX > 50) {
-            // Deslizou para direita
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCarousel();
-            }
+            prevBtn.click();
         }
     });
 
+    // Inicializa a posição
     updateCarousel();
 });
