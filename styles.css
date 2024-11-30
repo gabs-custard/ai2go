@@ -202,7 +202,7 @@ body {
 
 .hero-background {
     position: relative;
-    background-image: url("/images/Helping-AI2GO.JPG"); /* Substitua pelo caminho da sua imagem */
+    background-image: url("/images/Helping-AI2GO.webp"); /* Substitua pelo caminho da sua imagem */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -295,7 +295,7 @@ body {
 
 .gallery-carousel {
     display: flex;
-    transition: transform 0.5s ease;
+    transition: transform 0.2s ease;
     gap: 20px;
     width: 100%;
 }

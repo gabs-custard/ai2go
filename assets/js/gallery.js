@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Reativa a transição depois de um pequeno delay
             setTimeout(() => {
-                carousel.style.transition = 'transform 0.5s ease';
+                carousel.style.transition = 'transform 0.2s ease';
             }, 50);
         }
         
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCarousel();
             
             setTimeout(() => {
-                carousel.style.transition = 'transform 0.5s ease';
+                carousel.style.transition = 'transform 0.2s ease';
             }, 50);
         }
     }
