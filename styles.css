@@ -587,7 +587,9 @@ img {
     margin-bottom: 2rem;
     background-color: white;
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-fast);
 }
 
 .founder-card img {
