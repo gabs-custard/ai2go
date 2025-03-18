@@ -592,6 +592,11 @@ img {
     transition: var(--transition-fast);
 }
 
+.founder-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
 .founder-card img {
     width: 200px;
     height: 200px;
