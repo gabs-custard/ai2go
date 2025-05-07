@@ -486,6 +486,21 @@ img {
     max-width: 80%;
 }
 
+.case-logo-pref {
+    height: 120px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.case-logo-pref img {
+    max-height: 70px;
+    max-width: 70%;
+}
+
 .case-content {
     padding: 25px;
 }
